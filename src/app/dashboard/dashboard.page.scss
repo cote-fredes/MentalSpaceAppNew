@@ -1,0 +1,85 @@
+ion-content {
+  --background: none;
+  background-image: linear-gradient(to bottom right, #f2e9f7, #e0f2f7);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+ion-header {
+  ion-toolbar {
+    --background: linear-gradient(to right, #f2e9f7, #e0f2f7);
+    --color: #333;
+    box-shadow: none;
+  }
+}
+
+ion-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+ion-card {
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+  width: 100%;
+  max-width: 600px; /* Las tarjetas de contenido pueden ser un poco más anchas */
+}
+
+ion-card-header {
+  padding-bottom: 15px;
+}
+
+ion-card-title {
+  font-size: 1.6em;
+  font-weight: bold;
+  color: #5d5d81;
+  margin-top: 10px;
+}
+
+ion-card-subtitle {
+  color: #7f8c8d;
+  font-size: 0.9em;
+  margin-bottom: 10px;
+}
+
+ion-card-content p {
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+ion-button {
+  --background: #6a1b9a;
+  --background-activated: #7b1fa2;
+  --color: #fff;
+  border-radius: 10px;
+  font-weight: bold;
+  height: 45px;
+}
+
+// Estilos para ion-list y ion-item dentro de las tarjetas (ej. en "Recursos Recomendados")
+ion-list {
+  background: transparent; // Para que la lista no tenga un fondo blanco que rompa el card
+  padding: 0;
+}
+
+ion-item {
+  --background: transparent;
+  --border-color: #eee;
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  color: #444;
+  font-size: 0.95em;
+  margin-bottom: 5px;
+}
+
+ion-item ion-icon {
+  color: #6a1b9a;
+  margin-right: 10px;
+}

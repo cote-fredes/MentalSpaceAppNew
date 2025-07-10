@@ -1,0 +1,101 @@
+ion-content {
+  --background: none;
+  background-image: linear-gradient(to bottom right, #f2e9f7, #e0f2f7);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+ion-header {
+  ion-toolbar {
+    --background: linear-gradient(to right, #f2e9f7, #e0f2f7);
+    --color: #333;
+    box-shadow: none;
+  }
+}
+
+ion-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+ion-card {
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+  width: 100%;
+  max-width: 600px;
+}
+
+ion-card-header {
+  padding-bottom: 15px;
+}
+
+ion-card-title {
+  font-size: 1.6em;
+  font-weight: bold;
+  color: #5d5d81;
+  margin-top: 10px;
+}
+
+ion-card-subtitle {
+  color: #7f8c8d;
+  font-size: 0.9em;
+  margin-bottom: 10px;
+}
+
+ion-card-content p {
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+ion-button {
+  --background: #6a1b9a;
+  --background-activated: #7b1fa2;
+  --color: #fff;
+  border-radius: 10px;
+  font-weight: bold;
+  height: 45px;
+}
+
+ion-list {
+  background: transparent; // Importante para que el fondo de la lista no opaque el card
+  padding: 0;
+}
+
+ion-item {
+  --background: #fefefe; // Fondo claro para cada item de meditación
+  --border-radius: 8px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eee;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  display: flex; // Asegura que los elementos dentro del item se alineen bien
+  align-items: center; // Centra verticalmente íconos y labels
+}
+
+ion-item ion-icon {
+  color: #6a1b9a;
+  margin-right: 15px;
+  font-size: 1.6em; // Iconos un poco más grandes
+}
+
+ion-item h3 {
+  font-size: 1.05em;
+  font-weight: bold;
+  color: #5d5d81;
+  margin-bottom: 3px;
+}
+
+ion-item p {
+  font-size: 0.85em;
+  color: #666;
+  margin-top: 0;
+  margin-bottom: 0;
+}

@@ -1,0 +1,137 @@
+ion-content {
+  // Desactiva el fondo por defecto de Ionic para usar nuestro gradiente personalizado
+  --background: none;
+  // Gradiente lineal de lila/rosa pálido a celeste/azul suave, combinando con tu logo
+  background-image: linear-gradient(to bottom right, #f2e9f7, #e0f2f7);
+  background-size: cover; // Asegura que el gradiente cubra todo el fondo
+  background-position: center; // Centra el gradiente
+  background-repeat: no-repeat; // Evita que se repita
+}
+
+// Estilo para el header de la página de login
+ion-header {
+  ion-toolbar {
+    // Aplica el mismo gradiente o uno similar para que combine con el fondo del content
+    --background: linear-gradient(to right, #f2e9f7, #e0f2f7);
+    --color: #333; // Color de texto oscuro para que contraste con el fondo claro del toolbar
+    box-shadow: none; // Quita cualquier sombra por defecto si no la quieres
+  }
+}
+
+// Ajusta la columna para que el contenido dentro de ella se centre
+ion-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center; // Centra los ítems de la tarjeta (como la tarjeta misma)
+  justify-content: center; // Opcional: Centra verticalmente si la columna tiene una altura definida.
+}
+
+// Estilos para la tarjeta de login
+ion-card {
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  margin-top: 30px; // Reducir un poco el margen superior para dar más espacio
+  margin-bottom: 30px; // Añadir margen inferior para que la tarjeta no se pegue abajo
+  padding: 10px; // Padding interno de la tarjeta
+  width: 100%; // Asegura que la tarjeta ocupe todo el ancho disponible de la columna
+  max-width: 450px; // Puedes establecer un ancho máximo para que no se vea demasiado ancha en pantallas grandes
+}
+
+ion-card-header {
+  padding-bottom: 15px; // Aumenta el espacio debajo del subtítulo de la tarjeta
+}
+
+ion-card-title {
+  font-size: 1.8em;
+  font-weight: bold;
+  color: #5d5d81; /* Un color que combine con tu logo */
+  margin-top: 15px;
+}
+
+ion-card-subtitle {
+  color: #7f8c8d;
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+
+// Estilos para el logo dentro de la tarjeta
+.app-logo-login {
+  width: 180px; /* Tamaño del logo */
+  height: auto;
+  margin: 20px auto 30px auto; /* Espacio superior, centrado, espacio inferior */
+  display: block;
+  border-radius: 15px; // Suaviza las esquinas del logo
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); // Pequeña sombra para el logo
+}
+
+// Ajustes para los ítems de input y sus labels/mensajes de error
+ion-item {
+  --background: transparent;
+  --border-color: #ddd;
+  --highlight-color-focused: #6a1b9a; /* Color cuando el input está enfocado */
+  --highlight-color-valid: #6a1b9a;
+  --highlight-color-invalid: #d32f2f;
+  margin-bottom: 5px; // Reduce el margen inferior para los ítems para que los mensajes de error encajen mejor
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  padding-bottom: 0; // Asegura que no haya padding extra abajo del item
+
+  // Para centrar el input y su label dentro del item
+  width: 90%; // Ocupa un 90% del ancho del card-content para que se vea centrado con un poco de margen.
+  margin-left: auto; // Centra horizontalmente
+  margin-right: auto; // Centra horizontalmente
+}
+
+// Estilos para los mensajes de error
+.error-message {
+  text-align: center; // Centra el texto del mensaje de error
+  padding-left: 0; // Elimina padding a la izquierda si lo tenías para centrar bien
+  font-size: 0.75em; // Un poco más pequeño para que ocupe menos espacio vertical
+  margin-top: 0px; // Eliminar margen superior del mensaje para pegarlo al input
+  margin-bottom: 10px; // Espacio entre el mensaje de error y el siguiente input/botón
+  width: 90%; // Alinea el ancho del mensaje de error con el input
+  margin-left: auto;
+  margin-right: auto;
+}
+
+ion-text[color="danger"] {
+  color: var(--ion-color-danger, #eb445a); // Asegura que el color sea el de peligro de Ionic
+}
+
+// Estilo para los inputs inválidos (opcional, para resaltarlos visualmente)
+ion-item.ion-invalid.ion-touched {
+  --border-color: var(--ion-color-danger, #eb445a) !important; // Borde rojo si es inválido y se ha tocado
+}
+
+// Estilo para el botón de iniciar sesión
+ion-button[type="submit"] {
+  --background: #6a1b9a; /* Un morado fuerte */
+  --background-activated: #7b1fa2; /* Un poco más claro al presionar */
+  --color: #fff;
+  border-radius: 10px;
+  font-weight: bold;
+  height: 50px;
+  margin-top: 25px; // Un buen margen para separarlo del input
+  margin-bottom: 15px; // Espacio antes del texto "¿No tienes cuenta?"
+}
+
+// Estilos para los enlaces de registro y contraseña olvidada
+ion-text p {
+  font-size: 0.9em;
+  color: #555;
+  margin-top: 0px; // Reducir espacio superior para este párrafo
+  margin-bottom: 5px; // Espacio inferior
+}
+
+ion-text a {
+  color: #6a1b9a; /* El mismo morado del botón */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+ion-button[fill="clear"] {
+  --color: #6a1b9a;
+  font-size: 0.85em;
+  margin-top: 5px; // Reducir margen superior para este botón
+  margin-bottom: 20px; // Margen final para la tarjeta
+}

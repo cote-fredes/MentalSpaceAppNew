@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Cámara</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-button expand="block" (click)="takePicture()">
+    <ion-icon name="camera" slot="start"></ion-icon>
+    Tomar Foto
+  </ion-button>
+
+  <div *ngIf="capturedImage" class="image-container">
+    <img [src]="capturedImage" alt="Foto capturada">
+  </div>
+
+  <ion-card *ngIf="currentLocation">
+    <ion-card-header>
+      <ion-card-title>Ubicación</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Latitud: {{ formatNumber(currentLocation.coords.latitude) }}</p>
+      <p>Longitud: {{ formatNumber(currentLocation.coords.longitude) }}</p>
+      <p>Precisión: {{ currentLocation.coords.accuracy.toFixed(0) }} metros</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
