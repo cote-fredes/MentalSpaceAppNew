@@ -1,0 +1,25 @@
+import { TestBed } from '@angular/core/testing';
+import { CanActivateFn } from '@angular/router';
+
+import { AuthGuard } from './auth.guard';
+
+describe('authGuard', () => {
+  const executeGuard: CanActivateFn = (...guardParameters) => 
+      TestBed.runInInjectionContext(() => AuthGuard(...guardParameters));
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+  });
+
+  it('should be created', () => {
+    expect(executeGuard).toBeTruthy();
+  });
+});
+function beforeEach(arg0: () => void) {
+  throw new Error('Function not implemented.');
+}
+
+function expect(executeGuard: CanActivateFn) {
+  throw new Error('Function not implemented.');
+}
+

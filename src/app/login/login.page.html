@@ -10,39 +10,58 @@
       <ion-col size-lg="6" size-md="8" size-xs="12">
         <ion-card>
           <ion-card-header>
-            <img src="assets/logo/mental-space-logo.jpg" alt="Logo de MentalSpace" class="app-logo-login">
+            <!-- Logo de la aplicación -->
+            <img src="assets/logo/mental-space-logo-sm.jpg"
+                 srcset="assets/logo/mental-space-logo-sm.jpg 400w,
+                         assets/logo/mental-space-logo.jpg 800w"
+                 sizes="(max-width: 600px) 300px, 400px"
+                 alt="Logo de MentalSpace"
+                 class="app-logo-login"
+                 width="400"
+                 height="226"
+                 loading="lazy"
+                 style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
+
             <ion-card-title>Bienvenido a MentalSpace</ion-card-title>
             <ion-card-subtitle>Accede a tu espacio de bienestar</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
+            <!-- Formulario de inicio de sesión enlazado al FormGroup y al método onLogin -->
             <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+              <!-- Campo de email -->
               <ion-item>
                 <ion-icon name="person-outline" slot="start"></ion-icon>
                 <ion-input label="Email" labelPlacement="floating" type="email" formControlName="email"></ion-input>
               </ion-item>
+              <!-- Mensajes de error para el campo email -->
               <div *ngIf="f['email'].invalid && (f['email'].dirty || f['email'].touched)" class="error-message">
                 <ion-text color="danger" *ngIf="f['email'].errors?.['required']">Email es requerido.</ion-text>
                 <ion-text color="danger" *ngIf="f['email'].errors?.['email']">Email debe ser válido.</ion-text>
               </div>
 
+              <!-- Campo de contraseña -->
               <ion-item class="ion-margin-top">
                 <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
                 <ion-input label="Contraseña" labelPlacement="floating" type="password" formControlName="password"></ion-input>
               </ion-item>
+              <!-- Mensajes de error para el campo contraseña -->
               <div *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched)" class="error-message">
                 <ion-text color="danger" *ngIf="f['password'].errors?.['required']">Contraseña es requerida.</ion-text>
                 <ion-text color="danger" *ngIf="f['password'].errors?.['minlength']">Contraseña debe tener al menos 6 caracteres.</ion-text>
               </div>
 
-              <ion-button expand="block" type="submit" class="ion-margin-top" color="tertiary" [disabled]="!loginForm.valid">
+              <!-- Botón de Iniciar Sesión, habilitado solo si el formulario es válido -->
+              <ion-button expand="block" type="submit" class="ion-margin-top" color="tertiary" [disabled]="loginForm.invalid">
                 Iniciar Sesión
                 <ion-icon slot="end" name="log-in-outline"></ion-icon>
               </ion-button>
             </form>
 
+            <!-- Enlace para registrarse -->
             <ion-text class="ion-margin-top">
               <p>¿No tienes cuenta? <a [routerLink]="['/register']" routerLinkActive="router-link-active">Regístrate aquí</a></p>
             </ion-text>
+            <!-- Enlace para recuperar contraseña -->
             <ion-button fill="clear" expand="block" [routerLink]="['/forgot-password']">¿Olvidaste tu contraseña?</ion-button>
           </ion-card-content>
         </ion-card>

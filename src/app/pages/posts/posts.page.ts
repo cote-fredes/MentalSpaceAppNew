@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { 
+import {
   IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon,
   IonContent, IonSpinner, IonList, IonItem, IonLabel, IonItemSliding,
   IonItemOptions, IonItemOption, IonFab, IonFabButton,
   LoadingController, ToastController
-} from '@ionic/angular/standalone'; // Cambiado a imports standalone
+} from '@ionic/angular/standalone';
 import { ApiService } from '../../services/api.service';
 
 interface Post {
-  id: number; 
+  id: number;
   title: string;
   body: string;
 }
@@ -25,7 +25,7 @@ interface Post {
     IonContent, IonSpinner, IonList, IonItem, IonLabel, IonItemSliding,
     IonItemOptions, IonItemOption, IonFab, IonFabButton
   ],
-  providers: [LoadingController, ToastController] // Añadidos como providers
+  providers: [LoadingController, ToastController]
 })
 export class PostsPage {
   posts: Post[] = [];
@@ -53,7 +53,7 @@ export class PostsPage {
       next: (data: any) => {
         this.posts = data.map((post: any) => ({
           ...post,
-          id: Number(post.id) // Conversión explícita a número
+          id: Number(post.id)
         }));
         this.isLoading = false;
         loading.dismiss();
@@ -87,12 +87,16 @@ export class PostsPage {
     });
   }
 
+  async createNewPost() {
+    console.log('Se hizo clic en el botón para crear un nuevo post.');
+  }
+
   private logPostData() {
     if (this.posts.length > 0) {
       console.log('=== VERIFICACIÓN DE TIPOS ===');
       console.log('Primer post:', this.posts[0]);
       console.log('Tipo del ID:', typeof this.posts[0].id);
-      
+
       if (typeof this.posts[0].id === 'number') {
         console.log('✅ El ID es un number como se esperaba');
       } else {
@@ -102,10 +106,10 @@ export class PostsPage {
   }
 
   private verifyIdType() {
-    const invalidPosts = this.posts.filter(post => 
+    const invalidPosts = this.posts.filter(post =>
       typeof post.id !== 'number' || isNaN(post.id)
     );
-    
+
     if (invalidPosts.length > 0) {
       console.error('⚠️ Posts con IDs inválidos:', invalidPosts);
       this.showToast('Algunos posts tienen IDs inválidos', 'warning');

@@ -2,13 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Geolocation, Position } from '@capacitor/geolocation';
 import { GoogleMap } from '@capacitor/google-maps';
-import { 
+import {
   IonHeader,
   IonToolbar,
   IonTitle,
-  IonButtons,
-  IonButton,
-  IonIcon,
   IonContent,
   IonCard,
   IonCardHeader,
@@ -17,9 +14,10 @@ import {
   AlertController,
   LoadingController,
   ToastController
-} from '@ionic/angular/standalone'; // Importación standalone
+} from '@ionic/angular/standalone';
 import { ApiService } from '../../services/api.service';
 import { environment } from '../../../environments/environment';
+import { firstValueFrom } from 'rxjs'; 
 
 @Component({
   selector: 'app-mapa',
@@ -31,9 +29,6 @@ import { environment } from '../../../environments/environment';
     IonHeader,
     IonToolbar,
     IonTitle,
-    IonButtons,
-    IonButton,
-    IonIcon,
     IonContent,
     IonCard,
     IonCardHeader,
@@ -58,50 +53,101 @@ export class MapaPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.map) {
-      this.map.destroy();
-      this.map = null;
+    this.cleanupMap();
+  }
+
+  private async loadMap() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Cargando mapa y ubicación...'
+    });
+    await loading.present();
+
+    try {
+      await this.requestLocationPermission();
+      const coordinates = await Geolocation.getCurrentPosition({
+        enableHighAccuracy: true
+      });
+      this.currentPosition = coordinates;
+
+      await this.initializeMap(coordinates);
+      await this.updateAddress(coordinates.coords.latitude, coordinates.coords.longitude);
+      await this.showToast('Mapa y ubicación cargados correctamente.');
+
+    } catch (error) {
+      console.error('Error loading map:', error);
+      this.showError('No se pudo cargar el mapa. Verifica los permisos de ubicación o tu conexión a internet.');
+      this.currentAddress = 'Error al cargar mapa/ubicación';
+    } finally {
+      await loading.dismiss();
     }
   }
 
-  async loadMap() {
-    try {
-      const coordinates = await Geolocation.getCurrentPosition({ 
-        enableHighAccuracy: true 
-      });
-      this.currentPosition = coordinates;
-      
-      this.map = await GoogleMap.create({
-        id: 'my-map',
-        element: document.getElementById('map')!,
-        apiKey: environment.googleMapsApiKey, // Usa variable de entorno
-        config: {
-          center: {
-            lat: coordinates.coords.latitude,
-            lng: coordinates.coords.longitude
-          },
-          zoom: 15
-          // Eliminado disableDefaultUI y gestureHandling que no son compatibles
-        }
-      });
-
-      await this.updateAddress(coordinates.coords.latitude, coordinates.coords.longitude);
-    } catch (error) {
-      console.error('Error loading map:', error);
-      this.showError('No se pudo cargar el mapa. Verifica los permisos de ubicación.');
+  private async requestLocationPermission() {
+    const permissionStatus = await Geolocation.checkPermissions();
+    if (permissionStatus.location !== 'granted') {
+      const requestResult = await Geolocation.requestPermissions();
+      if (requestResult.location !== 'granted') {
+        throw new Error('Permiso de ubicación denegado.');
+      }
     }
+  }
+
+  private async initializeMap(coordinates: Position) {
+    const mapElement = document.getElementById('map');
+    if (!mapElement) {
+      throw new Error('Elemento del mapa no encontrado en el DOM.');
+    }
+
+    this.map = await GoogleMap.create({
+      id: 'my-map',
+      element: mapElement,
+      apiKey: environment.googleMapsApiKey,
+      config: {
+        center: {
+          lat: coordinates.coords.latitude,
+          lng: coordinates.coords.longitude
+        },
+        zoom: 15,
+        zoomControl: true,
+        mapTypeControl: true,
+        streetViewControl: true
+      }
+    });
+
+    
+    await this.map.addMarker({
+      coordinate: {
+        lat: coordinates.coords.latitude,
+        lng: coordinates.coords.longitude,
+      },
+      title: 'Tu ubicación actual',
+      snippet: this.currentAddress, 
+    });
   }
 
   private async updateAddress(lat: number, lng: number) {
     try {
-      const response = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${environment.googleMapsApiKey}`
-      );
-      const data = await response.json();
-      this.currentAddress = data.results[0]?.formatted_address || 'Dirección no disponible';
+      
+      const response = await firstValueFrom(this.apiService.reverseGeocode(lat, lng));
+
+      
+      if (response && response.results && response.results.length > 0) {
+        this.currentAddress = response.results[0]?.formatted_address || 'Dirección no disponible';
+      } else {
+        this.currentAddress = 'Dirección no disponible';
+        console.warn('No se encontraron resultados de geocodificación inversa.');
+      }
     } catch (error) {
       console.error('Error al obtener dirección:', error);
       this.currentAddress = 'Error obteniendo dirección';
+      this.showToast('No se pudo obtener la dirección exacta');
+    }
+  }
+
+  private cleanupMap() {
+    if (this.map) {
+      this.map.destroy();
+      this.map = null;
     }
   }
 
@@ -112,5 +158,14 @@ export class MapaPage implements OnInit, OnDestroy {
       buttons: ['OK']
     });
     await alert.present();
+  }
+
+  private async showToast(message: string) {
+    const toast = await this.toastCtrl.create({
+      message,
+      duration: 3000,
+      position: 'bottom'
+    });
+    await toast.present();
   }
 }

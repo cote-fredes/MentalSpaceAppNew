@@ -1,11 +1,15 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
-    "types": [
-      "jasmine"
-    ]
+    "types": ["jasmine"],
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "module": "es2020",
+    "target": "es2022",
+    "moduleResolution": "node"
   },
   "files": [
     "src/test.ts",
@@ -14,5 +18,8 @@
   "include": [
     "src/**/*.spec.ts",
     "src/**/*.d.ts"
+  ],
+  "exclude": [
+    "src/**/*.e2e-spec.ts"
   ]
 }

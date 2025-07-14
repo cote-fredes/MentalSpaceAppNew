@@ -1,0 +1,8 @@
+{
+  "name": "Mental Space",
+  "short_name": "MentalSpace",
+  "theme_color": "#3880ff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "/"
+}

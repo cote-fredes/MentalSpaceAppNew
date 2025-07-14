@@ -10,7 +10,6 @@ export class ApiService {
   private localApiUrl = 'http://localhost:3000';
   private jsonPlaceholderUrl = 'https://jsonplaceholder.typicode.com';
 
-  
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -97,6 +96,22 @@ export class ApiService {
       );
   }
 
+  
+  reverseGeocode(latitude: number, longitude: number): Observable<any> {
+    
+    
+    
+    
+    const geocodingApiUrl = `https://api.ejemplo.com/reverse-geocode?lat=${latitude}&lon=${longitude}`;
+
+    return this.http.get(geocodingApiUrl)
+      .pipe(
+        retry(2), 
+        catchError(this.handleError)
+      );
+  }
+
+  
   
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'Error desconocido';
